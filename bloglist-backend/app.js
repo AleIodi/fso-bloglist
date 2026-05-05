@@ -42,11 +42,10 @@ if (process.env.NODE_ENV === 'production') {
   const distPath = path.join(__dirname, '../bloglist-frontend/dist')
   app.use(express.static(distPath))
   
-  app.get('/*', (req, res, next) => {
+  app.get(/^(?!\/api).*/, (req, res) => {
     if (req.url.startsWith('/api')) {
-      return next()
+      res.sendFile(path.join(distPath, 'index.html'))
     }
-    res.sendFile(path.join(distPath, 'index.html'))
   })
 }
 
