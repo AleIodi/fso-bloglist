@@ -1,6 +1,7 @@
 const express = require('express')
 const morgan = require('morgan')
 const mongoose = require('mongoose')
+const path = require('path')
 const config = require('./utils/config')
 const middleware = require('./utils/middleware')
 const blogRouter = require('./controllers/blogs')
@@ -26,8 +27,6 @@ morgan.token('body', (req, res) => {
 })
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'))
 
-app.use(express.static('dist'))
-
 app.use(middleware.tokenExtractor)
 
 app.use('/api/blogs', middleware.userExtractor, blogRouter)
@@ -37,6 +36,14 @@ app.use('/api/login', loginRouter)
 if (process.env.NODE_ENV === 'test') {
   const testingRouter = require('./controllers/testing')
   app.use('/api/testing', testingRouter)
+}
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '../bloglist-frontend/dist')))
+  
+  app.get(/^(?!\/api).+/, (req, res) => {
+    res.sendFile(path.join(__dirname, '../bloglist-frontend/dist/index.html'))
+  })
 }
 
 app.use(middleware.unknownEndpoint)

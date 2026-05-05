@@ -7,9 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: process.env.TEST_PROXY === 'true'
-          ? 'http://localhost:3003'
-          : 'https://fso-bloglist-backend.onrender.com',
+        target: 'http://localhost:3003',
         changeOrigin: true
       }
     }
