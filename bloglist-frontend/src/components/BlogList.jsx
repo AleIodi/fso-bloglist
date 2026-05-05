@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom'
 
 const BlogList = ({ blogs }) => {
+  throw new Error('simulated error')
   return (
     <div>
       <h2>Blogs</h2>

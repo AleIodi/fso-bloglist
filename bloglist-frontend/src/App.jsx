@@ -15,6 +15,7 @@ import {
 } from 'react-router-dom'
 import BlogDetails from './components/BlogDetails'
 import { AppBar, Button, Toolbar, Typography, Box, CircularProgress } from '@mui/material'
+import ErrorBoundary from './components/ErrorBoundary'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
@@ -171,29 +172,31 @@ const App = () => {
       </AppBar>
       <Notification message={errorMessage} className={className} />
 
-      {isLoading ? (
-        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mt: 10 }}>
-          <CircularProgress />
-        </Box>
-      ) : (
-        <Routes>
-          <Route path="/login" element={
-            <Login
-              onSubmit={handleLogin}
-            />
-          } />
-          <Route path="/" element={<BlogList blogs={blogs} />} />
-          <Route path="/blogs/:id" element={
-            <BlogDetails
-              blog={blog}
-              likeBlog={handleLike}
-              deleteBlog={handleDelete}
-              user={user}
-            />
-          } />
-          <Route path="/newBlog" element={<NewBlog onSubmit={handleNewBlog} />} />
-        </Routes>
-      )}
+      <ErrorBoundary>
+        {isLoading ? (
+          <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mt: 10 }}>
+            <CircularProgress />
+          </Box>
+        ) : (
+          <Routes>
+            <Route path="/login" element={
+              <Login
+                onSubmit={handleLogin}
+              />
+            } />
+            <Route path="/" element={<BlogList blogs={blogs} />} />
+            <Route path="/blogs/:id" element={
+              <BlogDetails
+                blog={blog}
+                likeBlog={handleLike}
+                deleteBlog={handleDelete}
+                user={user}
+              />
+            } />
+            <Route path="/newBlog" element={<NewBlog onSubmit={handleNewBlog} />} />
+          </Routes>
+        )}
+      </ErrorBoundary>
 
       {/* <Toggable ref={blogFormRef}>
           </Toggable> */}
