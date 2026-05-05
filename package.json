@@ -1,0 +1,17 @@
+{
+  "name": "bloglist",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "dev": "concurrently \"npm run dev --prefix bloglist-backend\" \"npm run dev --bloglist-frontend\"",
+    "build": "npm run build --prefix bloglist-frontend",
+    "start": "NODE_ENV=production npm start --prefix bloglist-frontend"
+  },
+  "author": "Me",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
+
