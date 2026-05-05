@@ -193,6 +193,7 @@ const App = () => {
             />
           } />
           <Route path="/newBlog" element={<NewBlog onSubmit={handleNewBlog} />} />
+          <Route path="*" element={ <h1>404 - Page Not Found</h1> } />
         </Routes>
       )}
 
