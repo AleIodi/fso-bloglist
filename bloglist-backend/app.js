@@ -39,10 +39,14 @@ if (process.env.NODE_ENV === 'test') {
 }
 
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../bloglist-frontend/dist')))
+  const distPath = path.join(__dirname, '../bloglist-frontend/dist')
+  app.use(express.static(distPath))
   
-  app.get(/^(?!\/api).+/, (req, res) => {
-    res.sendFile(path.join(__dirname, '../bloglist-frontend/dist/index.html'))
+  app.get('*', (req, res, next) => {
+    if (req.url.startsWith('/api')) {
+      return next()
+    }
+    res.sendFile(path.join(distPath, 'index.html'))
   })
 }
 
