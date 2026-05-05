@@ -172,31 +172,29 @@ const App = () => {
       </AppBar>
       <Notification message={errorMessage} className={className} />
 
-      <ErrorBoundary>
-        {isLoading ? (
-          <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mt: 10 }}>
-            <CircularProgress />
-          </Box>
-        ) : (
-          <Routes>
-            <Route path="/login" element={
-              <Login
-                onSubmit={handleLogin}
-              />
-            } />
-            <Route path="/" element={<BlogList blogs={blogs} />} />
-            <Route path="/blogs/:id" element={
-              <BlogDetails
-                blog={blog}
-                likeBlog={handleLike}
-                deleteBlog={handleDelete}
-                user={user}
-              />
-            } />
-            <Route path="/newBlog" element={<NewBlog onSubmit={handleNewBlog} />} />
-          </Routes>
-        )}
-      </ErrorBoundary>
+      {isLoading ? (
+        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mt: 10 }}>
+          <CircularProgress />
+        </Box>
+      ) : (
+        <Routes>
+          <Route path="/login" element={
+            <Login
+              onSubmit={handleLogin}
+            />
+          } />
+          <Route path="/" element={<ErrorBoundary><BlogList blogs={blogs} /></ErrorBoundary>} />
+          <Route path="/blogs/:id" element={
+            <BlogDetails
+              blog={blog}
+              likeBlog={handleLike}
+              deleteBlog={handleDelete}
+              user={user}
+            />
+          } />
+          <Route path="/newBlog" element={<NewBlog onSubmit={handleNewBlog} />} />
+        </Routes>
+      )}
 
       {/* <Toggable ref={blogFormRef}>
           </Toggable> */}
