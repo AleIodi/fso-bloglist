@@ -1,32 +1,37 @@
-import { Button, TextField } from '@mui/material'
-import { useState } from 'react'
+import { Button, TextField } from "@mui/material";
+import { useState } from "react";
 
 const Login = ({ onSubmit }) => {
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-  const [isLoading, setIsLoading] = useState(false)
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = (event) => {
-    event.preventDefault()
-    setIsLoading(true)
-    onSubmit({ username, password })
-    setIsLoading(false)
-    setUsername('')
-    setPassword('')
-  }
+    event.preventDefault();
+    setIsLoading(true);
+    onSubmit({ username, password });
+    setIsLoading(false);
+    setUsername("");
+    setPassword("");
+  };
 
   return (
     <div>
       <h2>Login to application</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <TextField required label="username" variant="standard" slotProps={{
-            input: {
-              readOnly:  isLoading ,
-            },
-          }} value={username}
-          onChange={({ target }) => setUsername(target.value)}
-          name="Username"
+          <TextField
+            required
+            label="username"
+            variant="standard"
+            slotProps={{
+              input: {
+                readOnly: isLoading,
+              },
+            }}
+            value={username}
+            onChange={({ target }) => setUsername(target.value)}
+            name="Username"
           />
         </div>
         <div>
@@ -38,17 +43,20 @@ const Login = ({ onSubmit }) => {
             variant="standard"
             slotProps={{
               input: {
-                readOnly:  isLoading ,
+                readOnly: isLoading,
               },
-            }} value={password}
+            }}
+            value={password}
             onChange={({ target }) => setPassword(target.value)}
             name="Password"
           />
         </div>
-        <Button sx={{ mt: 2 }} variant="contained" type="submit">LOGIN</Button>
+        <Button sx={{ mt: 2 }} variant="contained" type="submit">
+          LOGIN
+        </Button>
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

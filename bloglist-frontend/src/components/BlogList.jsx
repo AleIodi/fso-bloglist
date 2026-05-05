@@ -1,20 +1,23 @@
-import { NavLink } from 'react-router-dom'
+import { NavLink } from "react-router-dom";
 
 const BlogList = ({ blogs }) => {
-  throw new Error('simulated error')
+  throw new Error("simulated error");
   return (
     <div>
       <h2>Blogs</h2>
       <ul>
-        {
-          blogs.sort((a, b) => b.likes - a.likes)
-            .map(blog =>
-              <li key={blog.id}><NavLink to={`/blogs/${blog.id}`}>{blog.title} {blog.author}</NavLink></li>
-            )
-        }
+        {blogs
+          .sort((a, b) => b.likes - a.likes)
+          .map((blog) => (
+            <li key={blog.id}>
+              <NavLink to={`/blogs/${blog.id}`}>
+                {blog.title} {blog.author}
+              </NavLink>
+            </li>
+          ))}
       </ul>
     </div>
-  )
-}
+  );
+};
 
-export default BlogList
+export default BlogList;
